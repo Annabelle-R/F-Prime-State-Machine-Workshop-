@@ -1,2 +1,4 @@
-# F-Prime-State-Machine-Workshop-
-Led go on off blink :}
+# F-Prime-State-Machine-Workshop
+State Machine Workshop to set an LED to different states (Blinking, On, Off) based on button presses.
+
+
