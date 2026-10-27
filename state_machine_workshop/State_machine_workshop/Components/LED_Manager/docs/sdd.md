@@ -1,10 +1,9 @@
 # State_machine_workshop::LED_Manager
-
-led manager
+Manager to handle led state machine to control whether led is on, off, or blinking.
 
 ## Introduction
 
-<!-- High level introduction, FPP interfaces?, high-level features? -->
+This is a queued component that handles a state machine for managing a led on, off, and blinking state.
 
 ## Requirements
 
@@ -14,7 +13,20 @@ led manager
 
 ## Design
 
-<!-- Explain high level design and important internal details -->
+### Commands
+
+
+### Events
+
+- Event stateTransition will report whenever the state of the led is changed.
+
+### Telemetry
+
+- Telemetry ledState will report whether the led is currently on or off.
+
+### Port
+
+- Port tick will be connected to the rate group for 10Hz to check button presses.
 
 ## Configuration
 
