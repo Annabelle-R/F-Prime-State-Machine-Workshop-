@@ -26,15 +26,36 @@ class LED_Manager final : public LED_ManagerComponentBase {
 
   private:
     // ----------------------------------------------------------------------
-    // Handler implementations for commands
+    // Handler implementations for typed input ports
     // ----------------------------------------------------------------------
 
-    //! Handler implementation for command TODO
-    //!
-    //! TODO
-    void TODO_cmdHandler(FwOpcodeType opCode,  //!< The opcode
-                         U32 cmdSeq            //!< The command sequence number
+    //! Handler implementation for schedIn
+    void schedIn_handler(FwIndexType portNum,  //!< The port number
+                         U32 context           //!< The call order
                          ) override;
+
+  private:
+    // ----------------------------------------------------------------------
+    // Implementations for internal state machine actions
+    // ----------------------------------------------------------------------
+
+    //! Implementation for action ledOn of state machine State_machine_workshop_LED_States
+    void State_machine_workshop_LED_States_action_ledOn(
+        SmId smId,                                        //!< The state machine id
+        State_machine_workshop_LED_States::Signal signal  //!< The signal
+        ) override;
+
+    //! Implementation for action ledOff of state machine State_machine_workshop_LED_States
+    void State_machine_workshop_LED_States_action_ledOff(
+        SmId smId,                                        //!< The state machine id
+        State_machine_workshop_LED_States::Signal signal  //!< The signal
+        ) override;
+
+    //! Implementation for action ledBlink of state machine State_machine_workshop_LED_States
+    void State_machine_workshop_LED_States_action_ledBlink(
+        SmId smId,                                        //!< The state machine id
+        State_machine_workshop_LED_States::Signal signal  //!< The signal
+        ) override;
 };
 
 }  // namespace State_machine_workshop

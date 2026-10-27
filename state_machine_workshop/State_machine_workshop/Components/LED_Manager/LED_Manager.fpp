@@ -1,30 +1,15 @@
 module State_machine_workshop {
     @ led manager
-    active component LED_Manager {
+    queued component LED_Manager {
+        state machine instance Led_State_Machine: LED_States
 
-        # One async command/port is required for active components
-        # This should be overridden by the developers with a useful command/port
-        @ TODO
-        async command TODO opcode 0
+        event stateTransition($state: LED_TYPE) \
+            severity activity high \
+            format "Changed LED state to {}"
 
-        ##############################################################################
-        #### Uncomment the following examples to start customizing your component ####
-        ##############################################################################
+        telemetry ledState: Fw.On
 
-        # @ Example async command
-        # async command COMMAND_NAME(param_name: U32)
-
-        # @ Example telemetry counter
-        # telemetry ExampleCounter: U64
-
-        # @ Example event
-        # event ExampleStateEvent(example_state: Fw.On) severity activity high id 0 format "State set to {}"
-
-        # @ Example port: receiving calls from the rate group
-        # sync input port run: Svc.Sched
-
-        # @ Example parameter
-        # param PARAMETER_NAME: U32
+        sync input port schedIn: Svc.Sched
 
         ###############################################################################
         # Standard AC Ports: Required for Channels, Events, Commands, and Parameters  #
@@ -48,4 +33,36 @@ module State_machine_workshop {
         param set port prmSetOut
 
     }
+
+    state machine LED_States {
+        signal redButton 
+        signal yellowButton
+        signal greenButton
+        signal tick
+
+        action ledOn
+        action ledOff
+        action ledBlink
+
+        initial enter OFF
+
+        state ON {
+            on redButton do { ledOff } enter OFF
+            on yellowButton do { ledBlink } enter Blinking
+
+        }
+
+        state OFF {
+            on yellowButton do { ledBlink } enter Blinking
+            on greenButton do {ledOn} enter ON
+
+        }
+
+        state Blinking {
+            on redButton do { ledOff } enter OFF
+            on greenButton do {ledOn} enter ON
+
+        }
+    }
+
 }
