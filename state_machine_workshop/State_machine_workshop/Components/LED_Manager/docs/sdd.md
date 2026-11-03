@@ -1,6 +1,6 @@
 # State_machine_workshop::LED_Manager
 
-led manager
+Manager for LED Component State Machine
 
 ## Introduction
 
