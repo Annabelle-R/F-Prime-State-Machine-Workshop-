@@ -1,0 +1,3 @@
+[submodule "state_machine_workshop/lib/path/to/lib/fprime"]
+	path = state_machine_workshop/lib/path/to/lib/fprime
+	url = git@github.com:nasa/fprime.git
