@@ -30,17 +30,17 @@ void LED_Manager ::schedIn_handler(FwIndexType portNum, U32 context) {
 
 void LED_Manager ::State_machine_workshop_LED_States_action_ledOn(SmId smId,
                                                                   State_machine_workshop_LED_States::Signal signal) {
-    // TODO
+    this->log_ACTIVITY_HI_stateTransition(LED_TYPE::LED_ON);
 }
 
 void LED_Manager ::State_machine_workshop_LED_States_action_ledOff(SmId smId,
                                                                    State_machine_workshop_LED_States::Signal signal) {
-    // TODO
+    this->log_ACTIVITY_HI_stateTransition(LED_TYPE::LED_OFF);
 }
 
 void LED_Manager ::State_machine_workshop_LED_States_action_ledBlink(SmId smId,
                                                                      State_machine_workshop_LED_States::Signal signal) {
-    // TODO
+    this->log_ACTIVITY_HI_stateTransition(LED_TYPE::LED_BLINK);
 }
 
 }  // namespace State_machine_workshop

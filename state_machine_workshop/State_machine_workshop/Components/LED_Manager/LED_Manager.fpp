@@ -32,6 +32,12 @@ module State_machine_workshop {
         @Port to set the value of a parameter
         param set port prmSetOut
 
+        @ GPIO Ports to read the button GPIOs
+        output port gpioRead: [3] Drv.GpioRead
+
+        @ GPIO port to write to LED
+        output port gpioWrite: Drv.GpioWrite
+
     }
 
     state machine LED_States {
