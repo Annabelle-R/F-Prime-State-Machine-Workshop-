@@ -1,10 +1,7 @@
 # State_machine_workshop::LED_Manager
-<<<<<<< HEAD
 
 Manager for LED Component State Machine
-=======
 Manager to handle led state machine to control whether led is on, off, or blinking.
->>>>>>> ce6e4293cbed48ec5ab88fa6f089f8a79db9147b
 
 ## Introduction
 
