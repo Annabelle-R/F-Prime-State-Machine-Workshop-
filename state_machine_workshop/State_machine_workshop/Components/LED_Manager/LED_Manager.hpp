@@ -29,6 +29,9 @@ class LED_Manager final : public LED_ManagerComponentBase {
     // Handler implementations for typed input ports
     // ----------------------------------------------------------------------
 
+    U32 m_count = 0;
+    U32 m_ledOn = 0;
+
     //! Handler implementation for schedIn
     void schedIn_handler(FwIndexType portNum,  //!< The port number
                          U32 context           //!< The call order
