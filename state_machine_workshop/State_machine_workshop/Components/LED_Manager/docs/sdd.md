@@ -1,4 +1,6 @@
 # State_machine_workshop::LED_Manager
+
+Manager for LED Component State Machine
 Manager to handle led state machine to control whether led is on, off, or blinking.
 
 ## Introduction
