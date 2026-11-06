@@ -11,6 +11,10 @@ module State_machine_workshop {
 
         sync input port schedIn: Svc.Sched
 
+        async command RED
+        async command GREEN
+        async command YELLOW
+
         ###############################################################################
         # Standard AC Ports: Required for Channels, Events, Commands, and Parameters  #
         ###############################################################################

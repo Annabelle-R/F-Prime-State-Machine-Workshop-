@@ -37,6 +37,25 @@ class LED_Manager final : public LED_ManagerComponentBase {
                          U32 context           //!< The call order
                          ) override;
 
+    // ----------------------------------------------------------------------
+    // Handler implementations for commands
+    // ----------------------------------------------------------------------
+
+    //! Handler implementation for command RED
+    void RED_cmdHandler(FwOpcodeType opCode,  //!< The opcode
+                        U32 cmdSeq            //!< The command sequence number
+                        ) override;
+
+    //! Handler implementation for command GREEN
+    void GREEN_cmdHandler(FwOpcodeType opCode,  //!< The opcode
+                          U32 cmdSeq            //!< The command sequence number
+                          ) override;
+
+    //! Handler implementation for command YELLOW
+    void YELLOW_cmdHandler(FwOpcodeType opCode,  //!< The opcode
+                           U32 cmdSeq            //!< The command sequence number
+                           ) override;
+
   private:
     // ----------------------------------------------------------------------
     // Implementations for internal state machine actions

@@ -17,3 +17,4 @@ fprime_setup_included_code()
 
 # This includes project-wide objects
 add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/State_machine_workshop")
+add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/config-overrides/")

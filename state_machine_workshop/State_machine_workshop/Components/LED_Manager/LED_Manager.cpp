@@ -23,13 +23,19 @@ LED_Manager ::~LED_Manager() {}
 void LED_Manager ::schedIn_handler(FwIndexType portNum, U32 context) {
     
     Fw::Logic red_state;
-    this->gpioRead_out(0, red_state);
+    
+    if (this->isConnected_gpioRead_OutputPort(0))
+        (void)this->gpioRead_out(0, red_state);
 
     Fw::Logic yellow_state;
-    this->gpioRead_out(1, yellow_state);
+    
+    if (this->isConnected_gpioRead_OutputPort(1))
+        (void)this->gpioRead_out(1, yellow_state);
 
     Fw::Logic green_state;
-    this->gpioRead_out(2, green_state);
+
+    if (this->isConnected_gpioRead_OutputPort(2)) 
+        (void)this->gpioRead_out(2, green_state);
 
     auto currentState = this->Led_State_Machine_getState();
 
@@ -43,13 +49,15 @@ void LED_Manager ::schedIn_handler(FwIndexType portNum, U32 context) {
         this->Led_State_Machine_sendSignal_greenButton();
     }
 
+    Fw::Logic ledLevel;
+
     switch (currentState){
         case LED_StatesStateMachineBase::State::ON:
-            this->gpioWrite_out(0, Fw::Logic::HIGH);
+            ledLevel = Fw::Logic::HIGH;
             m_ledOn = 1;
             break;
         case LED_StatesStateMachineBase::State::OFF:
-            this->gpioWrite_out(0, Fw::Logic::LOW);
+            ledLevel = Fw::Logic::LOW;
             m_ledOn = 0;
             break;
         case LED_StatesStateMachineBase::State::Blinking:
@@ -59,12 +67,44 @@ void LED_Manager ::schedIn_handler(FwIndexType portNum, U32 context) {
                 m_ledOn = (m_ledOn == 0) ? 1 : 0;
                 
                 if (m_ledOn == 0)
-                    this->gpioWrite_out(0, Fw::Logic::LOW);
+                    ledLevel = Fw::Logic::LOW;
                 else
-                    this->gpioWrite_out(0, Fw::Logic::HIGH);
+                    ledLevel = Fw::Logic::HIGH;
             }
             break;
     }
+
+    if (this->isConnected_gpioWrite_OutputPort(0))
+        (void)this->gpioWrite_out(0, ledLevel);
+
+    if (m_ledOn == 1)
+        tlmWrite_ledState(Fw::On::ON);
+    else
+        tlmWrite_ledState(Fw::On::OFF);
+}
+
+
+
+// ----------------------------------------------------------------------
+// Handler implementations for commands
+// ----------------------------------------------------------------------
+
+void LED_Manager ::RED_cmdHandler(FwOpcodeType opCode, U32 cmdSeq) {
+    this->Led_State_Machine_sendSignal_redButton();
+    this->dispatchCurrentMessages();
+    this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
+}
+
+void LED_Manager ::GREEN_cmdHandler(FwOpcodeType opCode, U32 cmdSeq) {
+    this->Led_State_Machine_sendSignal_greenButton();
+    this->dispatchCurrentMessages();
+    this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
+}
+
+void LED_Manager ::YELLOW_cmdHandler(FwOpcodeType opCode, U32 cmdSeq) {
+    this->Led_State_Machine_sendSignal_yellowButton();
+    this->dispatchCurrentMessages();
+    this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
 }
 
 // ----------------------------------------------------------------------
